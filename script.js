@@ -35,21 +35,21 @@
     focusRlTitle: '强化学习', focusRlBody: '通过环境交互学习驾驶决策与自适应控制策略，涉及 PPO、DDPG 和车辆底层控制。',
     focusControlTitle: '规划与控制', focusControlBody: '结合结构化驾驶意图、模型预测控制与车辆运动规划，研究学习与控制的协同。',
     publicationsEyebrow: '03 / 学术工作', publicationsTitle: '代表性研究',
-    publicationsIntro: '展示当前科研及论文工作；完整出版信息及链接将在公开后补充。',
+    publicationsIntro: '三篇在投研究手稿，涵盖学习式控制、越野 VLA 与动力学约束导航；在投不代表录用。',
     pubTypeResearch: '研究手稿', pubTypeCollaborative: '合作研究', pubStatusVerify: '研究手稿',
-    pubStatusOngoing: '持续研究中',
+    pubStatusOngoing: '持续研究中', pubStatusTVT: 'IEEE TVT · 在投', pubStatusNCE: 'NCE · 在投', pubStatusAEI: 'AEI · 在投', viewDetails: '查看详情 ↗',
     pubSimpcDescription: '结合基于 PPO 的驾驶意图、意图平滑、协同汇入和数据驱动 MPC 的学习－控制框架。',
     pubTgamDescription: 'TGAM / F²OCUS：面向越野视觉语言动作驾驶，结合主动地形感知与具身时序记忆。',
     pubVlaTitle: '自动驾驶视觉－语言－动作相关研究',
-    pubVlaDescription: '参与自动驾驶 VLA 合作研究。正式论文题目、作者名单及公开链接在核实前暂不展示。',
+    pubVlaDescription: '参与自动驾驶 VLA 合作研究。正式论文题目、作者名单及公开链接在核实前暂不展示。', pubDynalignDescription: '合作开展 VLA 研究，关注高层导航与车辆动力学对齐，以实现动力学可行的驾驶轨迹。',
     pubCoauthor: '合作作者',
-    publicationNote: '研究手稿与进行中的工作不等同于正式发表论文；可公开的出版信息将在确认后补充。',
+    publicationNote: '三篇论文均处于在投状态，尚不等同于录用或正式发表；公开链接与最终出版信息将在确认后补充。',
     engineeringEyebrow: '04 / 精选项目', engineeringTitle: '让研究落地',
     engineeringIntro: '展示从仿真基线到车辆控制实验的代表性系统与可复现工作。',
     filterAria: '项目类别筛选', filterAll: '全部项目', filterResearch: '科研', filterSystems: '工程',
-    projectTgamType: '越野 VLA · 科研', stageInProgress: '进行中',
+    projectTgamType: '越野 VLA · 科研', stageInProgress: '进行中', stageNCE: 'NCE · 在投',
     projectTgamTitle: '越野 VLA 主动感知',
-    projectTgamDescription: '复现 Wild-Drive，并研究轨迹引导的主动注视与动作条件时序记忆。单轨迹基线已完成审计；TGAM 扩展与闭环实验仍在推进。',
+    projectTgamDescription: '基于 Wild-Drive 开展轨迹引导主动感知与动作条件时序记忆研究；单轨迹基线已审计，进一步实验与闭环验证依照公开进度更新。',
     projectSimpcType: '规划与控制', stageSimulated: '已完成仿真评测',
     projectSimpcTitle: '结构化意图模型预测控制',
     projectSimpcDescription: '将 PPO 意图、结构化意图过滤、汇入协调与数据驱动 MPC 结合，在混合交通仿真中进行评测。',
@@ -242,4 +242,124 @@
   }
 
   document.getElementById('copyright-year').textContent = String(new Date().getFullYear());
+
+
+  // Fine-pointer-only interactions: magnetic buttons, soft card tilt and hero parallax.
+  // Animation is cosmetic and never interferes with links, keyboard navigation or touch.
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  if (finePointer.matches) {
+    const magnets = [...document.querySelectorAll('.magnetic')];
+    const cards = [...document.querySelectorAll('.mouse-card')];
+    const hero = document.querySelector('.hero-visual');
+    const heroFrame = hero?.querySelector('.visual-frame');
+    let pointer = null;
+    let raf = 0;
+    const clamp = (n, low, high) => Math.max(low, Math.min(high, n));
+    const rectDistance = (x, y, r) => Math.hypot(
+      Math.max(r.left - x, 0, x - r.right),
+      Math.max(r.top - y, 0, y - r.bottom)
+    );
+    function reset() {
+      pointer = null;
+      for (const button of magnets) {
+        button.classList.remove('is-near');
+        button.style.setProperty('--mx', '0px');
+        button.style.setProperty('--my', '0px');
+      }
+      for (const card of cards) {
+        card.classList.remove('is-near');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+        card.style.setProperty('--lift', '0px');
+      }
+      hero?.classList.remove('is-near');
+      if (heroFrame) {
+        for (const prop of ['--hx', '--hy']) heroFrame.style.setProperty(prop, '0px');
+        for (const prop of ['--hrx', '--hry']) heroFrame.style.setProperty(prop, '0deg');
+      }
+    }
+    function animate() {
+      raf = 0;
+      if (!pointer || reducedMotion.matches) return;
+      const { x, y } = pointer;
+      for (const button of magnets) {
+        const r = button.getBoundingClientRect();
+        const d = rectDistance(x, y, r);
+        if (d > 96) {
+          button.classList.remove('is-near');
+          button.style.setProperty('--mx', '0px');
+          button.style.setProperty('--my', '0px');
+          continue;
+        }
+        const strength = 1 - d / 96;
+        const dx = clamp((x - r.left - r.width / 2) * .10 * strength, -9, 9);
+        const dy = clamp((y - r.top - r.height / 2) * .10 * strength, -9, 9);
+        button.classList.add('is-near');
+        button.style.setProperty('--mx', `${dx}px`);
+        button.style.setProperty('--my', `${dy}px`);
+        button.style.setProperty('--spot-x', `${x - r.left}px`);
+        button.style.setProperty('--spot-y', `${y - r.top}px`);
+      }
+      for (const card of cards) {
+        if (card.hidden || (card.classList.contains('reveal') && !card.classList.contains('is-visible'))) continue;
+        const r = card.getBoundingClientRect();
+        const d = rectDistance(x, y, r);
+        if (d > 92) {
+          if (card.classList.contains('is-near')) {
+            card.classList.remove('is-near');
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+            card.style.setProperty('--lift', '0px');
+          }
+          continue;
+        }
+        card.classList.add('is-near');
+        card.style.setProperty('--px', `${x-r.left}px`);
+        card.style.setProperty('--py', `${y-r.top}px`);
+        if (d === 0) {
+          const nx = clamp((x-r.left)/r.width*2-1,-1,1);
+          const ny = clamp((y-r.top)/r.height*2-1,-1,1);
+          card.style.setProperty('--rx', `${-ny*2.1}deg`);
+          card.style.setProperty('--ry', `${nx*2.1}deg`);
+          card.style.setProperty('--lift', '-2px');
+        } else {
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
+          card.style.setProperty('--lift', '-1px');
+        }
+      }
+      if (hero && heroFrame) {
+        const r = hero.getBoundingClientRect();
+        if (rectDistance(x,y,r) < 90) {
+          const nx = clamp((x-r.left-r.width/2)/(r.width/2),-1,1);
+          const ny = clamp((y-r.top-r.height/2)/(r.height/2),-1,1);
+          hero.classList.add('is-near');
+          heroFrame.style.setProperty('--hx', `${nx*3}px`);
+          heroFrame.style.setProperty('--hy', `${ny*3}px`);
+          heroFrame.style.setProperty('--hrx', `${-ny*1.7}deg`);
+          heroFrame.style.setProperty('--hry', `${nx*1.7}deg`);
+          heroFrame.style.setProperty('--px', `${x-r.left}px`);
+          heroFrame.style.setProperty('--py', `${y-r.top}px`);
+        } else if (hero.classList.contains('is-near')) {
+          hero.classList.remove('is-near');
+          heroFrame.style.setProperty('--hx', '0px');
+          heroFrame.style.setProperty('--hy', '0px');
+          heroFrame.style.setProperty('--hrx', '0deg');
+          heroFrame.style.setProperty('--hry', '0deg');
+        }
+      }
+    }
+    function schedule() { if (!raf) raf = requestAnimationFrame(animate); }
+    window.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse' || reducedMotion.matches) return;
+      pointer = {x:e.clientX, y:e.clientY}; schedule();
+    }, {passive:true});
+    window.addEventListener('scroll', schedule, {passive:true});
+    window.addEventListener('resize', schedule, {passive:true});
+    document.addEventListener('pointerout', e => { if (!e.relatedTarget) reset(); });
+    window.addEventListener('blur', reset);
+    finePointer.addEventListener('change', e => { if (!e.matches) reset(); });
+    reducedMotion.addEventListener('change', e => { if (e.matches) reset(); });
+  }
+
 })();
