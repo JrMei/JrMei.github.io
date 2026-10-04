@@ -1,374 +1,144 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mei Jiarui | Automation & Autonomous Driving Engineer</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#2563eb',
-                        secondary: '#64748b',
-                        dark: '#1e293b',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                    },
-                    // 自定义动画关键帧
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        pulseSoft: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0.8' }
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-8px)' }
-                        }
-                    },
-                    animation: {
-                        fadeInUp: 'fadeInUp 0.6s ease forwards',
-                        pulseSoft: 'pulseSoft 2s infinite',
-                        float: 'float 3s ease-in-out infinite'
-                    }
-                },
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer utilities {
-            .text-shadow {
-                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            }
-            .transition-custom {
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 缓动曲线优化，更流畅 */
-            }
-            .skill-tag {
-                @apply bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium transition-custom hover:bg-primary hover:text-white;
-            }
-            .section-card {
-                @apply bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-custom;
-            }
-            /* 初始隐藏需要滚动动画的元素 */
-            .animate-on-scroll {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 0.6s ease, transform 0.6s ease;
-            }
-            /* 滚动到视口时触发动画 */
-            .animate-on-scroll.visible {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            /* 导航栏滚动变化 */
-            .header-scrolled {
-                @apply py-4 shadow-lg bg-dark/95 backdrop-blur-sm;
-            }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f7">
+  <meta name="description" content="Jiarui Mei — graduate researcher at Tongji University working on vision-language-action models, autonomous driving, reinforcement learning and vehicle control.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jiarui Mei · Autonomous Driving & Embodied AI">
+  <meta property="og:description" content="Research, publications, and engineering in VLA, autonomous driving, and intelligent vehicle control.">
+  <title>Jiarui Mei · Autonomous Driving & Embodied AI</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="script.js" defer></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans overflow-x-hidden">
-    <!-- Header Section：添加滚动缩放+头像悬浮动画 -->
-    <header id="header" class="bg-gradient-to-r from-dark to-gray-800 text-white py-16 md:py-24 transition-custom">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center">
-                <!-- 头像悬浮动画 -->
-                <div class="mb-8 md:mb-0 md:mr-8 animate-float">
-                    <img src="https://picsum.photos/id/1005/200/200" alt="Mei Jiarui Profile" class="w-40 h-40 rounded-full border-4 border-white shadow-lg transition-custom hover:shadow-primary/30">
-                </div>
-                <!-- 文字渐入动画（页面加载时触发） -->
-                <div class="text-center md:text-left animate-fadeInUp">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">Mei Jiarui</h1>
-                    <p class="text-xl md:text-2xl text-gray-300 mb-6 animate-fadeInUp" style="animation-delay: 0.2s">Automation Engineer | Autonomous Driving Engineer</p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-6 text-gray-200 animate-fadeInUp" style="animation-delay: 0.4s">
-                        <span class="flex items-center"><i class="fa fa-phone mr-2"></i> 17858295415</span>
-                        <span class="flex items-center"><i class="fa fa-envelope mr-2"></i> 2466381118@qq.com</span>
-                    </div>
-                    <div class="flex justify-center md:justify-start space-x-4 animate-fadeInUp" style="animation-delay: 0.6s">
-                        <a href="https://github.com/JrMei" target="_blank" class="text-white hover:text-primary transition-custom" aria-label="GitHub">
-                            <i class="fa fa-github text-2xl hover:scale-110"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/meijiarui" target="_blank" class="text-white hover:text-primary transition-custom" aria-label="LinkedIn">
-                            <i class="fa fa-linkedin text-2xl hover:scale-110"></i>
-                        </a>
-                        <a href="mailto:2466381118@qq.com" class="text-white hover:text-primary transition-custom" aria-label="Email">
-                            <i class="fa fa-envelope text-2xl hover:scale-110"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"><span id="progress-fill"></span></div>
 
-    <!-- About Section：滚动渐入+文本平滑过渡 -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-8 text-center animate-on-scroll">About Me</h2>
-            <div class="max-w-3xl mx-auto text-lg text-gray-700 leading-relaxed section-card animate-on-scroll">
-                <p class="mb-4 transition-custom hover:text-gray-900">A senior undergraduate majoring in Intelligent Science and Technology at Hangzhou Dianzi University, focusing on <span class="text-primary font-medium hover:underline">automation control</span> and <span class="text-primary font-medium hover:underline">autonomous driving technology</span>.</p>
-                <p class="mb-4 transition-custom hover:text-gray-900">Proficient in deep learning, reinforcement learning, and Python; familiar with core courses such as Automatic Control Principle and Signal Analysis. Experienced in autonomous driving decision-making research (DDPG/DQN algorithms) and SUMO simulation.</p>
-                <p class="transition-custom hover:text-gray-900">Excellent English proficiency (CET-6 >550, CET-6 Oral A+), with multiple provincial competition awards and scientific research project experience. Passionate about the application of AI in intelligent control scenarios.</p>
-            </div>
+  <header class="site-header" id="site-header">
+    <nav class="nav shell" aria-label="Primary navigation" data-i18n-aria="navLabel">
+      <a class="wordmark" href="#home" aria-label="Jiarui Mei, home"><span class="brand-symbol">jm<span>.</span></span><span class="wordmark-name">Jiarui Mei</span></a>
+      <div class="nav-links" id="nav-links">
+        <a class="nav-link active" href="#about" data-i18n="navAbout">About</a>
+        <a class="nav-link" href="#research" data-i18n="navResearch">Research</a>
+        <a class="nav-link" href="#publications" data-i18n="navPublications">Publications</a>
+        <a class="nav-link" href="#engineering" data-i18n="navEngineering">Engineering</a>
+        <a class="nav-link" href="#experience" data-i18n="navExperience">Experience</a>
+        <a class="nav-link" href="#contact" data-i18n="navContact">Contact</a>
+      </div>
+      <div class="nav-tools">
+        <button type="button" class="tool-button language-toggle" id="language-toggle" aria-label="Switch to Chinese" title="Switch language">中<span class="tool-divider">/</span>EN</button>
+        <button type="button" class="tool-button theme-toggle" id="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false" title="Toggle appearance">
+          <svg class="moon-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 14.6A8.4 8.4 0 0 1 9.4 3.2a8.5 8.5 0 1 0 11.4 11.4Z"/></svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <button type="button" class="tool-button menu-toggle" id="menu-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-layout">
+        <div class="hero-copy">
+          <div class="eyebrow hero-eyebrow hero-entrance"><span class="status-dot" aria-hidden="true"></span><span data-i18n="heroEyebrow">GRADUATE RESEARCHER · TONGJI UNIVERSITY</span></div>
+          <h1 class="hero-title hero-entrance" id="hero-title"><span data-i18n="heroTitleLine1">Intelligence</span><br><span class="gradient-text" data-i18n="heroTitleLine2">in motion.</span></h1>
+          <p class="hero-lead hero-entrance" data-i18n="heroLead">Exploring how intelligent vehicles perceive, reason, and act — from vision-language-action models to real-world vehicle control.</p>
+          <div class="hero-actions hero-entrance">
+            <a class="button button-primary" href="#research"><span data-i18n="exploreResearch">Explore research</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="button button-subtle" href="https://github.com/JrMei" target="_blank" rel="noopener noreferrer"><span>GitHub</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 15 15 5M6 5h9v9" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+          <div class="hero-meta hero-entrance"><span class="hero-meta-icon" aria-hidden="true">↗</span><span data-i18n="heroMeta">Shanghai, China · VLA / Embodied AI / Control</span></div>
         </div>
+        <div class="hero-visual hero-entrance" aria-label="Abstract illustration of perception, reasoning, and vehicle control" role="img" data-i18n-aria="heroVisualLabel">
+          <div class="visual-ambient"></div>
+          <div class="visual-frame">
+            <div class="visual-grid"></div>
+            <svg class="hero-orbit" viewBox="0 0 500 500" fill="none" aria-hidden="true"><circle cx="250" cy="250" r="172" stroke="white" stroke-opacity=".13" stroke-dasharray="3 10"/><circle cx="250" cy="250" r="125" stroke="white" stroke-opacity=".12"/><ellipse cx="250" cy="250" rx="208" ry="87" transform="rotate(-33 250 250)" stroke="url(#orbitGradient)" stroke-width="1.5"/><ellipse cx="250" cy="250" rx="208" ry="87" transform="rotate(36 250 250)" stroke="white" stroke-opacity=".13"/><defs><linearGradient id="orbitGradient" x1="68" y1="248" x2="462" y2="248"><stop stop-color="#8BC9FF" stop-opacity="0"/><stop offset=".5" stop-color="#8BC9FF" stop-opacity=".95"/><stop offset="1" stop-color="#A79BFF" stop-opacity="0"/></linearGradient></defs></svg>
+            <div class="core-glow"></div>
+            <div class="core-object"><div class="core-object-inner"><span class="core-topline">V · L · A</span><svg viewBox="0 0 120 90" fill="none" aria-hidden="true"><path d="M23 63c18-27 55-45 76-33" stroke="#75D5FF" stroke-width="2" stroke-linecap="round" stroke-dasharray="3 5"/><path d="m88 23 12 6-9 10" stroke="#75D5FF" stroke-width="2" stroke-linejoin="round"/><path d="M36 42h48l14 13v12H21V55l15-13Z" stroke="#E8F5FF" stroke-width="2" stroke-linejoin="round"/><path d="M43 43 35 54h43l-6-11" stroke="#E8F5FF" stroke-width="1.5"/><circle cx="38" cy="68" r="7" fill="#192C46" stroke="#E8F5FF" stroke-width="2"/><circle cx="81" cy="68" r="7" fill="#192C46" stroke="#E8F5FF" stroke-width="2"/></svg><span class="core-bottomline" data-i18n="visualCore">PERCEIVE · REASON · ACT</span></div></div>
+            <div class="visual-node node-one"><span class="node-pulse"></span><span data-i18n="visualPerception">Perception</span><small>01</small></div>
+            <div class="visual-node node-two"><span class="node-pulse"></span><span data-i18n="visualReasoning">Reasoning</span><small>02</small></div>
+            <div class="visual-node node-three"><span class="node-pulse"></span><span data-i18n="visualControl">Control</span><small>03</small></div>
+            <div class="visual-caption"><span class="caption-bar"></span><span data-i18n="visualCaption">BUILDING INTELLIGENCE FOR THE PHYSICAL WORLD</span></div>
+          </div>
+        </div>
+      </div>
+      <a class="scroll-hint" href="#about" aria-label="Scroll to about"><span data-i18n="scrollHint">SCROLL TO EXPLORE</span><span class="scroll-line" aria-hidden="true"></span></a>
     </section>
 
-    <!-- Education & Internship Section：分栏滚动错开动画 -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center animate-on-scroll">Education & Internship</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- 教育经历：滚动动画延迟0.1s -->
-                <div class="section-card animate-on-scroll" style="transition-delay: 0.1s">
-                    <div class="flex items-center mb-4">
-                        <i class="fa fa-graduation-cap text-primary text-2xl mr-3 transition-custom hover:scale-110"></i>
-                        <h3 class="text-2xl font-semibold">Education Experience</h3>
-                    </div>
-                    <div class="border-l-2 border-primary/30 pl-4 space-y-6">
-                        <div class="transition-custom hover:translate-x-1">
-                            <h4 class="font-bold text-lg">Hangzhou Dianzi University</h4>
-                            <p class="text-gray-600">Intelligent Science and Technology | Bachelor</p>
-                            <p class="text-gray-500 text-sm">Sep 2022 - Jun 2026 | Hangzhou</p>
-                            <ul class="mt-2 space-y-1 text-gray-700 list-disc list-inside">
-                                <li>Academic Ranking: Top 25%</li>
-                                <li>Core Courses: Machine Learning, Deep Learning, Automatic Control Principle, Python Programming</li>
-                                <li>Excellent Grades: Big Data Analysis (4.8/5), Deep Learning (4.9/5)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 实习经历：滚动动画延迟0.3s，错开更自然 -->
-                <div class="section-card animate-on-scroll" style="transition-delay: 0.3s">
-                    <div class="flex items-center mb-4">
-                        <i class="fa fa-briefcase text-primary text-2xl mr-3 transition-custom hover:scale-110"></i>
-                        <h3 class="text-2xl font-semibold">Internship Experience</h3>
-                    </div>
-                    <div class="border-l-2 border-primary/30 pl-4 space-y-6">
-                        <div class="transition-custom hover:translate-x-1">
-                            <h4 class="font-bold text-lg">Hangzhou Dianzi University Lishui Research Institute</h4>
-                            <p class="text-gray-600">Research Intern | Artificial Intelligence</p>
-                            <p class="text-gray-500 text-sm">Jul 2023 - Aug 2023 | Lishui</p>
-                            <ul class="mt-2 space-y-1 text-gray-700 list-disc list-inside">
-                                <li>Responsible for autonomous driving project research using PyTorch and SUMO</li>
-                                <li>Assisted the research team in data collection and literature review</li>
-                                <li>Supported team members in publishing 1 academic paper</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section class="section section-about" id="about" aria-labelledby="about-title">
+      <div class="shell about-grid">
+        <div class="section-heading reveal"><span class="eyebrow" data-i18n="aboutEyebrow">01 / ABOUT ME</span><h2 id="about-title" data-i18n="aboutTitle">A bridge between<br>AI and motion.</h2></div>
+        <div class="about-content reveal">
+          <p class="large-copy" data-i18n="aboutLead">I'm <strong>Jiarui Mei (梅家锐)</strong>, a graduate student at Tongji University working on autonomous driving and embodied intelligence.</p>
+          <p data-i18n="aboutBody">My research brings together vision-language-action models, reinforcement learning, and model predictive control. I care about turning promising algorithms into systems that can be tested in simulation and, ultimately, on real vehicles.</p>
+          <div class="about-facts">
+            <div class="fact"><span class="fact-label" data-i18n="factNow">CURRENTLY</span><span class="fact-value" data-i18n="factNowValue">Tongji University · M.E.</span></div>
+            <div class="fact"><span class="fact-label" data-i18n="factFocus">FOCUS</span><span class="fact-value">Autonomous Driving / VLA / RL</span></div>
+            <div class="fact"><span class="fact-label" data-i18n="factBased">BASED IN</span><span class="fact-value" data-i18n="factBasedValue">Shanghai, China</span></div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <!-- Skills Section：技能标签hover缩放+滚动渐入 -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-8 text-center animate-on-scroll">Core Skills</h2>
-            <div class="max-w-4xl mx-auto animate-on-scroll">
-                <!-- 技能分类1：编程与算法 -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-semibold mb-4 text-primary flex items-center transition-custom hover:text-primary/80">
-                        <i class="fa fa-code mr-2"></i>Programming & Algorithms
-                    </h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag hover:scale-105">Python</span>
-                        <span class="skill-tag hover:scale-105">PyTorch</span>
-                        <span class="skill-tag hover:scale-105">Deep Learning</span>
-                        <span class="skill-tag hover:scale-105">Reinforcement Learning</span>
-                        <span class="skill-tag hover:scale-105">DDPG/DQN</span>
-                        <span class="skill-tag hover:scale-105">Linux</span>
-                    </div>
-                </div>
-                <!-- 技能分类2：工具与平台 -->
-                <div class="mb-8">
-                    <h3 class="text-xl font-semibold mb-4 text-primary flex items-center transition-custom hover:text-primary/80">
-                        <i class="fa fa-tools mr-2"></i>Tools & Platforms
-                    </h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag hover:scale-105">SUMO</span>
-                        <span class="skill-tag hover:scale-105">TraCI</span>
-                        <span class="skill-tag hover:scale-105">Stable-Baselines3</span>
-                        <span class="skill-tag hover:scale-105">GPU Training</span>
-                        <span class="skill-tag hover:scale-105">Git</span>
-                        <span class="skill-tag hover:scale-105">Remote Server</span>
-                    </div>
-                </div>
-                <!-- 技能分类3：专业知识与语言 -->
-                <div>
-                    <h3 class="text-xl font-semibold mb-4 text-primary flex items-center transition-custom hover:text-primary/80">
-                        <i class="fa fa-book mr-2"></i>Professional Knowledge & Language
-                    </h3>
-                    <div class="flex flex-wrap gap-3">
-                        <span class="skill-tag hover:scale-105">Automatic Control Principle</span>
-                        <span class="skill-tag hover:scale-105">Signal Analysis</span>
-                        <span class="skill-tag hover:scale-105">Autonomous Driving</span>
-                        <span class="skill-tag hover:scale-105">CET-6 (>550)</span>
-                        <span class="skill-tag hover:scale-105">CET-6 Oral (A+)</span>
-                    </div>
-                </div>
-            </div>
+    <section class="section section-research" id="research" aria-labelledby="research-title">
+      <div class="shell">
+        <div class="section-top reveal"><div><span class="eyebrow" data-i18n="researchEyebrow">02 / RESEARCH</span><h2 id="research-title" data-i18n="researchTitle">Research interests<span class="accent-dot">.</span></h2></div><p class="section-intro" data-i18n="researchIntro">Understanding the full loop from sensing and decision-making to safe, adaptive action.</p></div>
+        <div class="research-grid">
+          <article class="research-card research-card-featured reveal">
+            <div class="research-number">01 / VLA</div><div class="research-art research-art-vla" aria-hidden="true"><span class="art-orbit art-orbit-a"></span><span class="art-orbit art-orbit-b"></span><span class="art-eye">◉</span></div>
+            <h3 data-i18n="focusVlaTitle">Vision–Language–Action</h3><p data-i18n="focusVlaBody">Multimodal perception, active visual attention, temporal memory, and trajectory generation for challenging driving scenes.</p>
+            <div class="research-keywords"><span>Multimodal Learning</span><span>Active Perception</span><span>Off-road</span></div>
+          </article>
+          <article class="research-card reveal"><div class="research-number">02 / RL</div><div class="research-art research-art-rl" aria-hidden="true"><span class="rl-path"></span><span class="rl-point rl-point-one"></span><span class="rl-point rl-point-two"></span><span class="rl-point rl-point-three"></span></div><h3 data-i18n="focusRlTitle">Reinforcement Learning</h3><p data-i18n="focusRlBody">Learning driving decisions and adaptive control policies through interaction, from PPO and DDPG to low-level vehicle control.</p><div class="research-keywords"><span>PPO</span><span>DDPG</span><span>Policy Learning</span></div></article>
+          <article class="research-card reveal"><div class="research-number">03 / MPC</div><div class="research-art research-art-mpc" aria-hidden="true"><span class="mpc-axis"></span><span class="mpc-wave mpc-wave-a"></span><span class="mpc-wave mpc-wave-b"></span></div><h3 data-i18n="focusControlTitle">Planning & Control</h3><p data-i18n="focusControlBody">Structured intent, model predictive control, and robust vehicle motion planning at the intersection of learning and control.</p><div class="research-keywords"><span>MPC</span><span>Motion Planning</span><span>4WID / 4WS</span></div></article>
         </div>
+      </div>
     </section>
 
-    <!-- Projects Section：项目卡片hover上浮+图片缩放 -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-8 text-center animate-on-scroll">Featured Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <!-- 项目1：hover上浮+图片缩放 -->
-                <div class="section-card animate-on-scroll hover:-translate-y-2">
-                    <div class="h-48 overflow-hidden mb-4 rounded-md">
-                        <img src="https://picsum.photos/id/1071/600/400" alt="DDPG Lane-Changing Decision" class="w-full h-full object-cover transition-custom hover:scale-105">
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2 transition-custom hover:text-primary">Lane-Changing Decision Based on DDPG</h3>
-                    <p class="text-gray-500 text-sm mb-3">Feb 2024 - May 2024 | Researcher (Sole Responsible)</p>
-                    <ul class="text-gray-700 mb-4 space-y-2 transition-custom hover:text-gray-800">
-                        <li>• Independently completed project design: background research, reward function design, coding, model training, and paper writing</li>
-                        <li>• Realized safe autonomous lane-changing of self-driving vehicles using DDPG algorithm</li>
-                        <li>• Output 1 research paper as the core achievement</li>
-                    </ul>
-                    <a href="https://github.com/JrMei/Lane-Changing-Decision" target="_blank" class="text-primary hover:text-primary/80 font-medium flex items-center group">
-                        View on GitHub 
-                        <i class="fa fa-arrow-right ml-2 transition-custom group-hover:translate-x-1"></i>
-                    </a>
-                </div>
-
-                <!-- 项目2：滚动动画延迟0.2s -->
-                <div class="section-card animate-on-scroll hover:-translate-y-2" style="transition-delay: 0.2s">
-                    <div class="h-48 overflow-hidden mb-4 rounded-md">
-                        <img src="https://picsum.photos/id/1072/600/400" alt="Highway Merge Control" class="w-full h-full object-cover transition-custom hover:scale-105">
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2 transition-custom hover:text-primary">Highway Merge Control for Autonomous Vehicles</h3>
-                    <p class="text-gray-500 text-sm mb-3">May 2024 - Present | Researcher (Full Process)</p>
-                    <ul class="text-gray-700 mb-4 space-y-2 transition-custom hover:text-gray-800">
-                        <li>• Proposed fusion algorithm of DQN + Data-Driven MPC (DDMPC) for safety decision-making</li>
-                        <li>• Built multi-vehicle interaction environment based on SUMO+TraCI; trained DQN with PyTorch</li>
-                        <li>• Improved efficiency via Linux+CUDA GPU parallel simulation; outperformed DQN/PPO in key metrics (success rate, collision rate)</li>
-                    </ul>
-                    <a href="https://github.com/JrMei/Highway_Merge_DecisionMaking" target="_blank" class="text-primary hover:text-primary/80 font-medium flex items-center group">
-                        View on GitHub 
-                        <i class="fa fa-arrow-right ml-2 transition-custom group-hover:translate-x-1"></i>
-                    </a>
-                </div>
-            </div>
+    <section class="section section-publications" id="publications" aria-labelledby="publications-title">
+      <div class="shell">
+        <div class="section-top reveal"><div><span class="eyebrow" data-i18n="publicationsEyebrow">03 / ACADEMIC WORK</span><h2 id="publications-title" data-i18n="publicationsTitle">Selected research<span class="accent-dot">.</span></h2></div><p class="section-intro" data-i18n="publicationsIntro">Current research and manuscript projects. Full publication details and links will be added when publicly available.</p></div>
+        <div class="publication-list">
+          <article class="publication-item reveal"><div class="publication-index">01</div><div class="publication-body"><div class="publication-top"><span class="pub-type" data-i18n="pubTypeResearch">RESEARCH MANUSCRIPT</span><span class="pub-status" data-i18n="pubStatusVerify">MANUSCRIPT</span></div><h3>Structured Intent Model Predictive Control for Autonomous On-Ramp Merging</h3><p data-i18n="pubSimpcDescription">A learning-and-control framework combining PPO-based intent, intent smoothing, coordinated merging, and data-driven MPC.</p><div class="pub-details"><span>SI-MPC</span><span>Autonomous Driving</span><span>2026</span></div></div><span class="publication-arrow" aria-hidden="true">↗</span></article>
+          <article class="publication-item reveal"><div class="publication-index">02</div><div class="publication-body"><div class="publication-top"><span class="pub-type" data-i18n="pubTypeResearch">RESEARCH MANUSCRIPT</span><span class="pub-status status-ongoing" data-i18n="pubStatusOngoing">ONGOING RESEARCH</span></div><h3>Trajectory-Guided Active Gaze with Action-Conditioned Outcome Memory</h3><p data-i18n="pubTgamDescription">TGAM / F²OCUS: active terrain perception and embodied temporal memory for off-road vision-language-action driving.</p><div class="pub-details"><span>TGAM / F²OCUS</span><span>Off-road VLA</span><span>2026</span></div></div><span class="publication-arrow" aria-hidden="true">↗</span></article>
+          <article class="publication-item reveal"><div class="publication-index">03</div><div class="publication-body"><div class="publication-top"><span class="pub-type" data-i18n="pubTypeCollaborative">COLLABORATIVE RESEARCH</span><span class="pub-status" data-i18n="pubStatusVerify">MANUSCRIPT</span></div><h3 data-i18n="pubVlaTitle">Vision–Language–Action Research for Autonomous Driving</h3><p data-i18n="pubVlaDescription">Contributing author on a VLA autonomous-driving manuscript; the official paper title, author list, and publication link are not displayed until verified.</p><div class="pub-details"><span>VLA</span><span data-i18n="pubCoauthor">Co-author</span><span>2026</span></div></div><span class="publication-arrow" aria-hidden="true">↗</span></article>
         </div>
+        <p class="publication-note reveal" data-i18n="publicationNote">Manuscript projects and ongoing research are shown separately from peer-reviewed publications. Bibliographic details will be added when publicly available.</p>
+      </div>
     </section>
 
-    <!-- Awards Section：列表项hover偏移+图标缩放 -->
-    <section class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-8 text-center animate-on-scroll">Awards & Certifications</h2>
-            <div class="max-w-4xl mx-auto section-card animate-on-scroll">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- 竞赛奖项 -->
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-primary flex items-center transition-custom hover:text-primary/80">
-                            <i class="fa fa-trophy mr-2"></i>Competitions Awards
-                        </h3>
-                        <ul class="space-y-3 text-gray-700">
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-medal text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>MathorCup Mathematical Modeling Competition | Regional Third Prize</span>
-                            </li>
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-medal text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>14th Zhejiang "Challenge Cup" | Provincial Third Prize</span>
-                            </li>
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-medal text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>22nd Zhejiang University Multimedia Design Competition | Provincial Third Prize</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- 证书与荣誉 -->
-                    <div>
-                        <h3 class="text-xl font-semibold mb-4 text-primary flex items-center transition-custom hover:text-primary/80">
-                            <i class="fa fa-certificate mr-2"></i>Certifications & Honors
-                        </h3>
-                        <ul class="space-y-3 text-gray-700">
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-check-circle text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>College English Test Band 4 (CET-4)</span>
-                            </li>
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-check-circle text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>College English Test Band 6 (CET-6, >550) | Oral A+</span>
-                            </li>
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-check-circle text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>Excellent Student Scholarship (Multiple Times) | Hangzhou Dianzi University</span>
-                            </li>
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-check-circle text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>Excellent Communist Youth League Member</span>
-                            </li>
-                            <li class="flex items-start transition-custom hover:translate-x-2">
-                                <i class="fa fa-check-circle text-primary mt-1 mr-2 transition-custom hover:scale-120"></i>
-                                <span>Motor Vehicle Driving License (C1)</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <section class="section section-engineering" id="engineering" aria-labelledby="engineering-title">
+      <div class="shell">
+        <div class="section-top reveal"><div><span class="eyebrow" data-i18n="engineeringEyebrow">04 / SELECTED PROJECTS</span><h2 id="engineering-title" data-i18n="engineeringTitle">Research, engineered<span class="accent-dot">.</span></h2></div><p class="section-intro" data-i18n="engineeringIntro">Selected systems and reproducible work, from simulation baselines to vehicle-control experiments.</p></div>
+        <div class="filter-bar reveal" role="group" aria-label="Filter projects" data-i18n-aria="filterAria"><button type="button" class="filter-chip is-selected" data-filter="all" aria-pressed="true" data-i18n="filterAll">All work</button><button type="button" class="filter-chip" data-filter="research" aria-pressed="false" data-i18n="filterResearch">Research</button><button type="button" class="filter-chip" data-filter="systems" aria-pressed="false" data-i18n="filterSystems">Engineering</button></div>
+        <div class="project-grid" id="project-grid">
+          <article class="project-card project-large reveal" data-category="research"><div class="project-visual visual-tgam" aria-hidden="true"><div class="terrain terrain-back"></div><div class="terrain terrain-front"></div><svg class="tgam-route" viewBox="0 0 540 260" fill="none" preserveAspectRatio="none"><path d="M50 224C146 209 142 138 234 156s89-118 226-122" stroke="#EFF9FF" stroke-width="3" stroke-linecap="round" stroke-dasharray="3 10"/><circle cx="236" cy="156" r="46" stroke="#B8E4FF" stroke-opacity=".65" stroke-width="1.5"/><circle cx="236" cy="156" r="24" stroke="#B8E4FF" stroke-width="1.5"/><circle cx="236" cy="156" r="5" fill="#fff"/><circle cx="460" cy="34" r="6" fill="#fff"/></svg><div class="visual-pill pill-left">ACTIVE GAZE</div><div class="visual-pill pill-right">OUTCOME MEMORY</div><div class="visual-id">01 — TGAM / F²OCUS</div></div><div class="project-content"><div class="project-meta"><span data-i18n="projectTgamType">OFF-ROAD VLA · RESEARCH</span><span class="project-stage" data-i18n="stageInProgress">IN PROGRESS</span></div><h3 data-i18n="projectTgamTitle">Active Perception for Off-road VLA</h3><p data-i18n="projectTgamDescription">Reproducing Wild-Drive and developing trajectory-guided gaze with action-conditioned temporal memory. The single-trajectory baseline has been audited; TGAM extensions and closed-loop tests remain ongoing.</p><div class="project-tags"><span>PyTorch</span><span>Qwen2.5</span><span>Wild-Drive</span><span>Mamba</span></div></div></article>
+          <article class="project-card reveal" data-category="research"><div class="project-visual visual-simpc" aria-hidden="true"><svg viewBox="0 0 520 270" preserveAspectRatio="xMidYMid slice" fill="none"><path d="M0 52H520M0 125H520M0 198H520" stroke="#B7C9E1" stroke-width="1.2" stroke-dasharray="8 10" opacity=".55"/><path d="M-10 225c145-2 138-2 245-93 78-67 157-69 300-76" stroke="#91C1FF" stroke-width="3.5" stroke-linecap="round"/><path d="M-10 241c152-1 153-17 252-94 89-70 166-72 293-78" stroke="#91C1FF" stroke-width="1.5" opacity=".28"/><rect x="206" y="134" width="46" height="23" rx="7" fill="#A1D5FF" transform="rotate(-32 206 134)"/><rect x="390" y="42" width="46" height="23" rx="7" fill="#E6EEFF" transform="rotate(-5 390 42)"/></svg><div class="visual-pill pill-left">PPO → MPC</div><div class="visual-id">02 — SI-MPC</div></div><div class="project-content"><div class="project-meta"><span data-i18n="projectSimpcType">PLANNING & CONTROL</span><span class="project-stage stage-done" data-i18n="stageSimulated">SIMULATION EVALUATED</span></div><h3 data-i18n="projectSimpcTitle">Structured Intent MPC</h3><p data-i18n="projectSimpcDescription">An on-ramp merging framework integrating PPO intent, structured intent filtering, merge coordination, and data-driven MPC. Evaluated in simulated mixed traffic.</p><div class="project-tags"><span>PPO</span><span>MPC</span><span>SUMO</span><span>TraCI</span></div></div></article>
+          <article class="project-card reveal" data-category="research systems"><div class="project-visual visual-4ws" aria-hidden="true"><svg class="chassis-svg" viewBox="0 0 520 270" fill="none"><rect x="182" y="46" width="157" height="173" rx="40" fill="#C8D7F6" fill-opacity=".11" stroke="#B8CEFF" stroke-opacity=".55" stroke-width="1.5"/><rect x="206" y="69" width="110" height="125" rx="24" stroke="#B8CEFF" stroke-opacity=".35" stroke-dasharray="5 6"/><g stroke="#B9E0FF" stroke-width="2" fill="#A5D1FF" fill-opacity=".25"><rect x="150" y="66" width="32" height="54" rx="9" transform="rotate(-24 150 66)"/><rect x="339" y="66" width="32" height="54" rx="9" transform="rotate(24 339 66)"/><rect x="150" y="160" width="32" height="54" rx="9" transform="rotate(24 150 160)"/><rect x="339" y="160" width="32" height="54" rx="9" transform="rotate(-24 339 160)"/></g><path d="M260 165V101m0 0-14 14m14-14 14 14" stroke="#9BDEFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M100 98c-19 30-15 70 4 96m0 0-2-20m2 20-18-7M425 98c19 30 15 70-4 96m0 0 2-20m-2 20 18-7" stroke="#84BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="visual-pill pill-right">4WID / 4WS</div><div class="visual-id">03 — LEARNING + CONTROL</div></div><div class="project-content"><div class="project-meta"><span data-i18n="project4wsType">EMBODIED CONTROL · EXPLORATION</span><span class="project-stage" data-i18n="stageInProgress">IN PROGRESS</span></div><h3 data-i18n="project4wsTitle">Generalist Driving + 4WID/4WS</h3><p data-i18n="project4wsDescription">Exploring a hierarchical architecture that connects generalist driving models with reinforcement-learning-based control for an independently driven and steered chassis.</p><div class="project-tags"><span>VLA</span><span>RL</span><span>4WID / 4WS</span><span>Isaac Lab</span></div></div></article>
+          <article class="project-card reveal" data-category="systems"><div class="project-visual visual-simulation" aria-hidden="true"><div class="sim-window"><div class="sim-titlebar"><span></span><span></span><span></span><b>SIMULATION / CLOSED LOOP</b></div><div class="sim-grid"></div><div class="sim-road"></div><div class="sim-car sim-car-main"></div><div class="sim-car sim-car-obstacle"></div><div class="sim-target"></div></div><div class="visual-id">04 — SYSTEMS & EVALUATION</div></div><div class="project-content"><div class="project-meta"><span data-i18n="projectSimulationType">SIMULATION & EVALUATION</span><span class="project-stage" data-i18n="stageInProgress">IN PROGRESS</span></div><h3 data-i18n="projectSimulationTitle">Driving Simulation & Evaluation</h3><p data-i18n="projectSimulationDescription">Building reproducible training and evaluation workflows across CARLA / Bench2Drive, SUMO, and BeamNG.tech, with closed-loop test integration underway.</p><div class="project-tags"><span>CARLA</span><span>Bench2Drive</span><span>BeamNG.tech</span><span>Linux</span></div></div></article>
+          <article class="project-card reveal" data-category="research systems"><div class="project-visual visual-ddpg" aria-hidden="true"><svg viewBox="0 0 520 270" preserveAspectRatio="xMidYMid slice" fill="none"><path d="M-15 63h550M-15 136h550M-15 209h550" stroke="#b9c7e8" stroke-opacity=".4" stroke-dasharray="8 12"/><path d="M0 190c127 0 151-95 267-95h253" stroke="#bce7ff" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 7"/><path d="M0 199c127 0 151-95 267-95h253" stroke="#9dccff" stroke-opacity=".32" stroke-width="1.5"/><g transform="translate(240 83) rotate(-12)"><rect width="47" height="25" rx="7" fill="#aad4ff"/><rect x="11" y="3" width="25" height="8" rx="3" fill="#46658f"/></g><g transform="translate(389 95)"><rect width="43" height="24" rx="7" fill="#dbe9f7"/><rect x="10" y="3" width="23" height="7" rx="3" fill="#647e9e"/></g></svg><div class="visual-pill pill-left">DDPG / DQN / TD3</div><div class="visual-id">05 — OPEN-SOURCE RESEARCH</div></div><div class="project-content"><div class="project-meta"><span data-i18n="projectDdpgType">REINFORCEMENT LEARNING</span><span class="project-stage stage-done" data-i18n="stageOpenSource">OPEN SOURCE</span></div><h3 data-i18n="projectDdpgTitle">RL-based Lane Changing</h3><p data-i18n="projectDdpgDescription">An earlier open-source lane-changing research project using DDPG, DQN and TD3 in Highway-env, with reproducible training scripts and comparisons.</p><div class="project-tags"><span>DDPG</span><span>DQN</span><span>TD3</span><span>Highway-env</span></div><a class="project-repo" href="https://github.com/JrMei/Lane-Changing-Decision" target="_blank" rel="noopener noreferrer"><span data-i18n="projectDdpgLink">Explore source code</span><span aria-hidden="true">↗</span></a></div></article>
         </div>
+        <div class="more-projects reveal"><a href="https://github.com/JrMei" target="_blank" rel="noopener noreferrer" class="text-link"><span data-i18n="moreProjects">More code and experiments on GitHub</span><span aria-hidden="true">↗</span></a></div>
+      </div>
     </section>
 
-    <!-- Contact Section：按钮呼吸动画+文字软脉冲 -->
-    <section class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-3xl font-bold mb-6 animate-on-scroll">Looking for Opportunities</h2>
-            <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto animate-on-scroll animate-pulseSoft">Currently seeking a full-time position as an Automation Engineer in Hangzhou. Open to collaborations in autonomous driving and intelligent control fields.</p>
-            <a href="mailto:2466381118@qq.com" class="bg-primary hover:bg-primary/90 text-white font-medium px-6 py-3 rounded-full inline-flex items-center transition-custom hover:scale-105 hover:shadow-lg animate-on-scroll">
-                <i class="fa fa-envelope mr-2"></i> Send Application Email
-            </a>
-        </div>
-    </section>
+    <section class="section section-skills" id="skills" aria-labelledby="skills-title"><div class="shell"><div class="section-top reveal"><div><span class="eyebrow" data-i18n="skillsEyebrow">05 / TOOLKIT</span><h2 id="skills-title" data-i18n="skillsTitle">What I work with<span class="accent-dot">.</span></h2></div><p class="section-intro" data-i18n="skillsIntro">Tools and methods used in research, experimentation, and engineering; exploratory technologies are labeled accordingly.</p></div><div class="skills-grid"><article class="skill-panel reveal"><div class="skill-icon">⌘</div><h3 data-i18n="skillAiTitle">AI & Multimodal Learning</h3><p data-i18n="skillAiDescription">Model training, adaptation, and representation learning.</p><div class="skill-cloud"><span>Python</span><span>PyTorch</span><span>Transformers</span><span>LoRA / SFT</span><span>Qwen</span><span>VLA</span></div></article><article class="skill-panel reveal"><div class="skill-icon">◇</div><h3 data-i18n="skillControlTitle">Decision & Control</h3><p data-i18n="skillControlDescription">Optimization-based planning and learning-based decision-making.</p><div class="skill-cloud"><span>PPO</span><span>DDPG</span><span>MPC</span><span>iLQR</span><span>Trajectory Planning</span><span>RL</span></div></article><article class="skill-panel reveal"><div class="skill-icon">⌁</div><h3 data-i18n="skillPlatformsTitle">Platforms & Engineering</h3><p data-i18n="skillPlatformsDescription">Simulation, GPU experimentation, and reproducible workflows.</p><div class="skill-cloud"><span>Linux / CUDA</span><span>Git</span><span>CARLA</span><span>SUMO</span><span>BeamNG.tech</span><span>Docker</span></div></article></div><div class="exploring-note reveal"><span class="exploring-marker" aria-hidden="true"></span><span data-i18n="exploringText">Currently exploring: Isaac Lab, 4WID/4WS control, and deployment workflows for NVIDIA Jetson Orin.</span></div></div></section>
 
-    <!-- Footer：版权信息淡入 -->
-    <footer class="bg-dark text-white py-8 animate-on-scroll">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2025 Mei Jiarui. All Rights Reserved.</p>
-            <p class="text-gray-400 mt-2 transition-custom hover:text-gray-300">Hosted with <i class="fa fa-heart text-red-500"></i> on GitHub Pages</p>
-        </div>
-    </footer>
+    <section class="section section-experience" id="experience" aria-labelledby="experience-title"><div class="shell experience-grid"><div class="section-heading reveal"><span class="eyebrow" data-i18n="experienceEyebrow">06 / BACKGROUND</span><h2 id="experience-title" data-i18n="experienceTitle">The journey<br>so far.</h2><p data-i18n="experienceIntro">A foundation in automation, shaped by research in intelligent vehicles.</p></div><div class="timeline reveal"><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date" data-i18n="tongjiDate">2026 — PRESENT</div><h3 data-i18n="tongjiTitle">Tongji University</h3><p class="timeline-role" data-i18n="tongjiRole">M.E. Student · Automotive Engineering</p><p data-i18n="tongjiDescription">Intelligent Vehicle Research · Automotive Embodied Intelligence Research Group. Research in autonomous driving and vision-language-action systems.</p></div><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2022 — 2026</div><h3 data-i18n="hduTitle">Hangzhou Dianzi University</h3><p class="timeline-role" data-i18n="hduRole">B.Eng. · Automation</p><p data-i18n="hduDescription">Undergraduate research in reinforcement learning, autonomous driving decision-making, and intelligent control.</p></div><div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">2023</div><h3 data-i18n="internTitle">HDU Lishui Research Institute</h3><p class="timeline-role" data-i18n="internRole">Research Internship · Artificial Intelligence</p><p data-i18n="internDescription">Early applied research experience in autonomous driving, machine learning, and simulation.</p></div></div></div></section>
 
-    <!-- 交互脚本：滚动动画触发+导航栏变化 -->
-    <script src="script.js"></script>
-    <script>
-        // 1. 滚动动画触发逻辑（补充到原有script.js或单独添加）
-        document.addEventListener('DOMContentLoaded', function() {
-            // 导航栏滚动变化
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) {
-                    header.classList.add('header-scrolled');
-                } else {
-                    header.classList.remove('header-scrolled');
-                }
+    <section class="section section-personal" id="personal" aria-labelledby="personal-title"><div class="shell personal-grid"><div class="personal-card personal-awards reveal"><span class="eyebrow" data-i18n="personalEyebrow">07 / BEYOND THE LAB</span><h2 id="personal-title" data-i18n="personalTitle">Curious by nature.<br>Driven by practice.</h2><p data-i18n="personalDescription">Beyond research, I enjoy football and cycling. Team sports have shaped how I approach collaboration, leadership, and persistent problem-solving.</p><div class="personal-pills"><span data-i18n="personalFootball">University football team</span><span data-i18n="personalCaptain">Department team captain</span><span data-i18n="personalCycling">Cycling</span></div></div><div class="personal-card personal-honors reveal"><span class="eyebrow" data-i18n="honorsEyebrow">HONORS & RECOGNITION</span><h3 data-i18n="honorsTitle">Highlights</h3><ul class="honors-list"><li><span class="honor-mark">✳</span><span data-i18n="honorOne">Undergraduate academic scholarships · Hangzhou Dianzi University</span></li><li><span class="honor-mark">✳</span><span data-i18n="honorTwo">Provincial competition awards · Challenge Cup and multimedia design</span></li><li><span class="honor-mark">✳</span><span data-i18n="honorThree">English: CET-6 and excellent oral proficiency</span></li></ul></div></div></section>
 
-                // 滚动触发元素动画
-                const animateElements = document.querySelectorAll('.animate-on-scroll');
-                animateElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    // 元素顶部进入视口底部100px时触发动画
-                    if (elementTop < windowHeight - 100) {
-                        element.classList.add('visible');
-                    }
-                });
-            });
+    <section class="contact-section" id="contact" aria-labelledby="contact-title"><div class="shell contact-inner reveal"><span class="eyebrow" data-i18n="contactEyebrow">08 / GET IN TOUCH</span><h2 id="contact-title" data-i18n="contactTitle">Let's build what's next.</h2><p data-i18n="contactBody">Open to academic exchanges, open-source collaboration, and conversations about autonomous driving, VLA, and embodied intelligence.</p><div class="contact-actions"><a class="button button-contact" href="mailto:meijiarui555@foxmail.com"><span data-i18n="contactEmail">Send an email</span><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 10h12m-5-5 5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="contact-github" href="https://github.com/JrMei" target="_blank" rel="noopener noreferrer">github.com/JrMei <span aria-hidden="true">↗</span></a></div></div></section>
+  </main>
 
-            // 页面加载时触发一次检查（确保顶部元素显示）
-            window.dispatchEvent(new Event('scroll'));
-        });
-    </script>
+  <footer class="site-footer"><div class="shell footer-inner"><div><a class="footer-wordmark" href="#home">jm<span>.</span></a><span class="footer-copy">© <span id="copyright-year">2026</span> Jiarui Mei. <span data-i18n="footerRights">All rights reserved.</span></span></div><div class="footer-right"><span data-i18n="footerMade">Designed for clarity. Built for the web.</span><a href="#home" data-i18n="backTop">Back to top ↑</a></div></div></footer>
 </body>
 </html>
